@@ -2,6 +2,7 @@ const  express = require('express');
 const  cors = require('cors');
 const bodyParser =require('body-parser');
 const admin = require('firebase-admin');
+const objectId = require('mongodb').ObjectID;
 require('dotenv').config();
 const app = express();
 
@@ -42,6 +43,13 @@ client.connect(err => {
          res.send(result.insertedCount>0);
      })
      
+   })
+
+   app.delete('/delete/:id',(req,res) =>{
+      volunteerMemberCollection.deleteOne({_id:objectId(req.params.id)})
+      .then(result =>{
+          res.send(result.deletedCount>0);
+      })
    })
 
 });
