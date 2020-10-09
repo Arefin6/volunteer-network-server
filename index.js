@@ -26,13 +26,23 @@ client.connect(err => {
    
    app.get('/allMembers',(req,res) => {
         const userEmail = req.query.email;
-        console.log(userEmail);
+       
         volunteerMemberCollection.find({'register.email':userEmail})
         .toArray((err,documents) =>{
             res.send(documents);
            
         })
      
+   })
+
+   app.get('/admin/allMembers',(req,res) =>{
+        
+    volunteerMemberCollection.find({})
+    .toArray((err,documents) =>{
+        res.send(documents);
+       
+    })
+
    })
 
 
